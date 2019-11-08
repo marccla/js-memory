@@ -1,0 +1,102 @@
+  // scritps.js
+
+  const cards = document.querySelectorAll('.memory-card');
+
+  let hasFlippedCard = false;
+  let lockBoard = false;
+  let firstCard, secondCard;
+
+  function flipCard() {
+    if (lockBoard) return;
+   if (this === firstCard) return;
+
+    this.classList.add('flip');
+
+    if (!hasFlippedCard) {
+      hasFlippedCard = true;
+      firstCard = this;
+      return;
+    }
+
+    secondCard = this;
+   
+
+    checkForMatch();
+  }
+
+
+  function checkForMatch() {
+    let isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
+    isMatch ? disableCards(onePoint()) : unflipCards();
+    onePoint();
+  }
+
+  function disableCards() {
+    firstCard.removeEventListener('click', flipCard);
+    secondCard.removeEventListener('click', flipCard);
+
+   resetBoard();
+  }
+
+  function unflipCards() {
+    lockBoard = true;
+
+    setTimeout(() => {
+      firstCard.classList.remove('flip');
+      secondCard.classList.remove('flip');
+
+     
+     resetBoard();
+    }, 1500);
+  }
+
+ function resetBoard() {
+   [hasFlippedCard, lockBoard] = [false, false];
+   [firstCard, secondCard] = [null, null];
+ }
+ (function shuffle() {
+    cards.forEach(card => {
+      let ramdomPos = Math.floor(Math.random() * 12);
+      card.style.order = ramdomPos;
+    });
+  })();
+
+    // Score Counter
+ 
+    let score = 0;
+
+
+  
+    function onePoint() {
+        if (secondCard.dataset.framework == firstCard.dataset.framework) {
+            document.getElementById('scoreBox').innerHTML = ++score;
+        } else {
+          document.getElementById('scoreBox').innerHTML = --score;
+        }
+        
+    }; // End of Score Counter  
+
+    
+    
+
+    // function onePoint() {
+    //     if (secondCard.dataset.framework == firstCard.dataset.framework) {
+    //         score = ++1;
+    //     } else {
+    //         score = '';
+    //     }
+    // }
+   
+    // document.getElementById('scoreBox').innerHTML = score;
+  cards.forEach(card => card.addEventListener('click', flipCard));
+
+  
+
+//   function secondPoint() {
+//     if (firstCard.dataset.framework === secondCard.dataset.framework) {
+//         document.getElementById('scoreBox').innerHTML = --score;
+//     } else {
+//       document.getElementById('scoreBox').innerHTML = ++score;
+//     }
+    
+// }
