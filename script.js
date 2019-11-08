@@ -76,27 +76,7 @@
         
     }; // End of Score Counter  
 
-    
-    
-
-    // function onePoint() {
-    //     if (secondCard.dataset.framework == firstCard.dataset.framework) {
-    //         score = ++1;
-    //     } else {
-    //         score = '';
-    //     }
-    // }
-   
-    // document.getElementById('scoreBox').innerHTML = score;
   cards.forEach(card => card.addEventListener('click', flipCard));
 
   
 
-//   function secondPoint() {
-//     if (firstCard.dataset.framework === secondCard.dataset.framework) {
-//         document.getElementById('scoreBox').innerHTML = --score;
-//     } else {
-//       document.getElementById('scoreBox').innerHTML = ++score;
-//     }
-    
-// }
